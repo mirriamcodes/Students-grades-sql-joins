@@ -1,0 +1,23 @@
+-- All grades
+SELECT * FROM student_grades;
+
+-- Cross join (wrong - multiplies everything)
+SELECT * FROM student_grades, students;
+
+/* Implicit inner join - old style */
+SELECT * FROM student_grades, students
+WHERE student_grades.student_id = students.id;
+
+/* Explicit inner join - JOIN (modern, use this) */
+SELECT students.first_name, students.last_name, students.email,
+       student_grades.test, student_grades.grade
+FROM students
+JOIN student_grades
+ON students.id = student_grades.student_id
+WHERE grade > 90;
+
+/* Left outer join - shows all students even without grades */
+SELECT students.first_name, student_grades.test, student_grades.grade
+FROM students
+LEFT OUTER JOIN student_grades
+ON students.id = student_grades.student_id;
